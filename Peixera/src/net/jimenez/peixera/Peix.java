@@ -5,61 +5,44 @@ import acm.graphics.GImage;
 public class Peix {
 
 	String sexe;
-	char eix;
+	int movX;
+	int movY;
 	GImage imatge;
-	int direccio;
 	int posX;
 	int posY;
 	
-	public Peix(GImage img, String sex, int dir) {
-		
+	public Peix(GImage img, String sex, int x, int y) {	
 		imatge = img;
 		sexe = sex;
-		direccio = dir;
-		
+		movX = x;
+		movY = y;	
 	}
 	
-	public char getEix() {
-		
-		return eix;
-		
+	public int getMoveX() {	
+		return movX;	
 	}
 	
-	public int posY() {
+	public int getMoveY() {
+		return movY;
+	}
+	
+	public int getPosY() {
 		return posY;
 	}
 	
-	public int getDir() {
-		
-		return direccio;
-		
-	}
-	
-	public void setEix(char e) {
-		
-		eix = e;
-		
-	}
-	
-	public void setPosicio(int X, int Y){
-		
+	public void setPosicio(int X, int Y){	
 		posX = X;
 		posY = Y;
-		imatge.setLocation(posX, posY);
-		
+		imatge.setLocation(posX, posY);	
 	}
+	
 	public int widthImg() {
-
 		int w = (int) imatge.getWidth();
-
 		return w;
-
 	}
+	
 	public int heightImg() {
-
 		int h = (int) imatge.getHeight();
-
 		return h;
-
 	}
 }

@@ -23,38 +23,39 @@ public class Peixera {
 
 		for (int i = 0; i < Peixos.size(); i++) {
 
-			if (Peixos.get(i).getDir() > 0) {
-
-				if (Peixos.get(i).getEix() == 'X') {
-
-					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
-
-					Peixos.get(i).setPosicio(0, posY);
-
-				} else {
-
+			if(Peixos.get(i).getMoveX() == 0){
+				
+				if(Peixos.get(i).getMoveY() > 0) {
+					
 					int posX = rnd.nextInt(width - Peixos.get(i).widthImg());
-
+					
 					Peixos.get(i).setPosicio(posX, 0);
-
+					
+				} else {
+					
+					int posX = rnd.nextInt(width - Peixos.get(i).widthImg()); 
+					int posY = height - Peixos.get(i).heightImg();
+					
+					Peixos.get(i).setPosicio(posX, posY);
+					
 				}
 				
 			} else {
-
-				if (Peixos.get(i).getEix() == 'X') {
-
-					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
-
-					Peixos.get(i).setPosicio(width - Peixos.get(i).widthImg(), posY);
-
-				} else {
-
-					int posX = rnd.nextInt(width - Peixos.get(i).widthImg());
-
-					Peixos.get(i).setPosicio(posX, height - Peixos.get(i).heightImg());
-
-				}
 				
+				if(Peixos.get(i).getMoveX() > 0) {
+					
+					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
+					
+					Peixos.get(i).setPosicio(0, posY);
+					
+				} else {
+					
+					int posX = width - Peixos.get(i).widthImg();
+					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
+					
+					Peixos.get(i).setPosicio(posX, posY);
+					
+				}
 			}
 		}
 	}
