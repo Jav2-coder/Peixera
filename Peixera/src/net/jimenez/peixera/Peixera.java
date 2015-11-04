@@ -59,4 +59,13 @@ public class Peixera {
 			}
 		}
 	}
+	public void mourePeixos() {
+		
+		while(Peixos.size() > 0) {
+			
+			for (int i = 0; i < Peixos.size(); i++){
+				Peixos.get(i).movimentPeix();
+			}	
+		}	
+	}
 }

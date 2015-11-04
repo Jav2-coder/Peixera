@@ -22,12 +22,29 @@ public class Peix {
 		return movX;	
 	}
 	
+	public void setMoveX(int x) {
+		movX = x;
+	}
+	
 	public int getMoveY() {
 		return movY;
 	}
 	
+	public void setMoveY(int y) {
+		movY = y;
+	}
+	
 	public int getPosY() {
 		return posY;
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public void movimentPeix() {
+		imatge.move(movX, movY);
+		imatge.pause(5);
 	}
 	
 	public void setPosicio(int X, int Y){	

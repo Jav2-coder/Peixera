@@ -31,6 +31,7 @@ public class App extends GraphicsProgram {
 		
 		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight());
 		peixera.posicionament();
+		peixera.mourePeixos();
 		
 	}
 	
@@ -44,7 +45,7 @@ public class App extends GraphicsProgram {
 		
 		if (movX == 0) {
 			
-			movY = direccio[rnd.nextInt(2)] + 1;
+			movY = direccio[rnd.nextInt(2) + 1];
 			
 		}
 		
