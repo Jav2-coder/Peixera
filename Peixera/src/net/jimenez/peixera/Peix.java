@@ -62,4 +62,9 @@ public class Peix {
 		int h = (int) imatge.getHeight();
 		return h;
 	}
+	
+	public GImage getImage() {
+		return imatge;
+	}
+	
 }

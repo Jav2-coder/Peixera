@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import acm.graphics.GImage;
+import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 public class App extends GraphicsProgram {
@@ -23,13 +24,15 @@ public class App extends GraphicsProgram {
 	
 	public void run() {
 		
+		GRect recipient = new GRect(0, 0, getWidth(), getHeight());
+		
 		for(int i = 0; i < 2; i++){
 			
 			Peixos.add(crearPeix());
 			
 		}
 		
-		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight());
+		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight(), recipient);
 		peixera.posicionament();
 		peixera.mourePeixos();
 		
