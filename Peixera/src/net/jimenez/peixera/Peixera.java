@@ -1,16 +1,20 @@
 package net.jimenez.peixera;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import acm.graphics.GImage;
 import acm.graphics.GRectangle;
 
 public class Peixera {
 
 	GRectangle peixera;
 	List<Peix> Peixos;
+	List<Peix> Bebes = new ArrayList<Peix>();
 	int width;
 	int height;
+	Random rnd;
 
 	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient) {
 
@@ -75,22 +79,31 @@ public class Peixera {
 				if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
 
 					Peixos.get(i).movimentPeix();
-					
-					for(int j = 0; j < Peixos.size(); j++){
-						
-						if(peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
-							
+
+					for (int j = 0; j < Peixos.size(); j++) {
+
+						if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
+
 							String sex1 = Peixos.get(i).getSexe();
 							String sex2 = Peixos.get(j).getSexe();
-							
-							if(sex1.equals(sex2)){
-								
+
+							if (sex1.equals(sex2)) {
+
 								Peixos.get(i).setVida(false);
 								Peixos.get(j).setVida(false);
-								
+
 								Peixos.get(i).setPosicio(1000, 1000);
 								Peixos.get(j).setPosicio(1000, 1000);
+
+							} else {
+
+								if(Peixos.get(i).getRepro() && Peixos.get(j).getRepro()){
 								
+								Peixos.get(i).setRepro(false);
+								Peixos.get(j).setRepro(false);
+								crearBebe(i, j);
+								
+								} 
 							}
 						}
 					}
@@ -102,7 +115,7 @@ public class Peixera {
 
 				}
 			}
-			
+
 			for (int i = Peixos.size() - 1; i >= 0; i--) {
 
 				if (!Peixos.get(i).getVida()) {
@@ -112,5 +125,34 @@ public class Peixera {
 				}
 			}
 		}
+	}
+
+	private void crearBebe(int i, int j) {
+		
+		rnd = new Random();
+		String[] sexe = { "mascle", "femella" };
+		int posX;
+		int posY;
+		int sex = rnd.nextInt(2);
+		GImage nouPeix;
+
+		if (Peixos.get(i).getSexe().equals(sexe[sex])) {
+
+			nouPeix = Peixos.get(i).getImage();
+			posX = (int) Peixos.get(i).getImage().getX();
+			posY = (int) Peixos.get(i).getImage().getY();
+			
+		} else {
+
+			nouPeix = Peixos.get(j).getImage();
+			posX = (int) Peixos.get(j).getImage().getX();
+			posY = (int) Peixos.get(j).getImage().getY();
+		}
+
+		System.out.println(posX + " " + posY);
+		
+		Peix P = new Peix(nouPeix, sexe[sex]);
+		P.setPosicio(posX, posY);
+		Bebes.add(P);
 	}
 }

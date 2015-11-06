@@ -11,21 +11,39 @@ public class Peix {
 	GImage imatge;
 	int posX;
 	int posY;
-	boolean vida;
+	boolean vida = true;
+	boolean repro = true;
 	
-	public Peix(GImage img, String sex, int x, int y, boolean life) {	
+	public Peix(GImage img, String sex, int x, int y) {	
 		imatge = img;
 		sexe = sex;
 		movX = x;
-		movY = y;	
-		vida = life;
+		movY = y;
 	}
+	
+	public Peix(GImage img, String sex) {
+		
+		imatge = img;
+		sexe = sex;
+		
+	}
+	
 	public boolean getVida() {
 		return vida;
 	}
+	
 	public void setVida(boolean mort){
 		vida = mort;
 	}
+	
+	public boolean getRepro() {
+		return repro;
+	}
+	
+	public void setRepro(boolean r) {
+		repro = r;
+	}
+	
 	public String getSexe() {
 		return sexe;
 	}

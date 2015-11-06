@@ -42,7 +42,6 @@ public class App extends GraphicsProgram {
 
 		Random rnd = new Random();
 
-		boolean vida = true;
 		String sexe = genere[rnd.nextInt(2)];
 		int movX = direccio[rnd.nextInt(3)];
 		int movY = 0;
@@ -65,7 +64,7 @@ public class App extends GraphicsProgram {
 			add(img);	
 		}
 		
-		Peix P = new Peix(img, sexe, movX, movY, vida);
+		Peix P = new Peix(img, sexe, movX, movY);
 
 		return P;
 	}	
