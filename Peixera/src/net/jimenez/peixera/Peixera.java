@@ -3,16 +3,16 @@ package net.jimenez.peixera;
 import java.util.List;
 import java.util.Random;
 
-import acm.graphics.GRect;
+import acm.graphics.GRectangle;
 
 public class Peixera {
 
-	GRect peixera;
+	GRectangle peixera;
 	List<Peix> Peixos;
 	int width;
 	int height;
 
-	public Peixera(List<Peix> fish, int w, int h, GRect recipient) {
+	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient) {
 
 		peixera = recipient;
 		Peixos = fish;
@@ -70,19 +70,46 @@ public class Peixera {
 
 			for (int i = 0; i < Peixos.size(); i++) {
 
-				GRect peix = new GRect(Peixos.get(i).getPosX(), Peixos.get(i)
-						.getPosY(), Peixos.get(i).widthImg(), Peixos.get(i)
-						.heightImg());
+				GRectangle peix = Peixos.get(i).getRect();
 
-				if (peix.intersect(peixera)) {
+				if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
 
 					Peixos.get(i).movimentPeix();
+					
+					for(int j = 0; j < Peixos.size(); j++){
+						
+						if(peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
+							
+							String sex1 = Peixos.get(i).getSexe();
+							String sex2 = Peixos.get(j).getSexe();
+							
+							if(sex1.equals(sex2)){
+								
+								Peixos.get(i).setVida(false);
+								Peixos.get(j).setVida(false);
+								
+								Peixos.get(i).setPosicio(1000, 1000);
+								Peixos.get(j).setPosicio(1000, 1000);
+								
+							}
+						}
+					}
 
 				} else {
 
-				}
+					Peixos.get(i).canviDireccio();
+					Peixos.get(i).movimentPeix();
 
-				Peixos.get(i).movimentPeix();
+				}
+			}
+			
+			for (int i = Peixos.size() - 1; i >= 0; i--) {
+
+				if (!Peixos.get(i).getVida()) {
+
+					Peixos.remove(i);
+
+				}
 			}
 		}
 	}

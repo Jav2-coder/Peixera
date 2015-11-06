@@ -1,6 +1,7 @@
 package net.jimenez.peixera;
 
 import acm.graphics.GImage;
+import acm.graphics.GRectangle;
 
 public class Peix {
 
@@ -10,12 +11,23 @@ public class Peix {
 	GImage imatge;
 	int posX;
 	int posY;
+	boolean vida;
 	
-	public Peix(GImage img, String sex, int x, int y) {	
+	public Peix(GImage img, String sex, int x, int y, boolean life) {	
 		imatge = img;
 		sexe = sex;
 		movX = x;
 		movY = y;	
+		vida = life;
+	}
+	public boolean getVida() {
+		return vida;
+	}
+	public void setVida(boolean mort){
+		vida = mort;
+	}
+	public String getSexe() {
+		return sexe;
 	}
 	
 	public int getMoveX() {	
@@ -44,7 +56,12 @@ public class Peix {
 	
 	public void movimentPeix() {
 		imatge.move(movX, movY);
-		imatge.pause(5);
+		imatge.pause(1);
+	}
+	
+	public void canviDireccio() {
+		movX = movX * -1;
+		movY = movY * -1;	
 	}
 	
 	public void setPosicio(int X, int Y){	
@@ -67,4 +84,7 @@ public class Peix {
 		return imatge;
 	}
 	
+	public GRectangle getRect() {
+		return imatge.getBounds();
+	}	
 }
