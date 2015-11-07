@@ -15,6 +15,7 @@ public class Peix {
 	boolean repro = true;
 	
 	public Peix(GImage img, String sex, int x, int y) {	
+		
 		imatge = img;
 		sexe = sex;
 		movX = x;
@@ -22,7 +23,6 @@ public class Peix {
 	}
 	
 	public Peix(GImage img, String sex) {
-		
 		imatge = img;
 		sexe = sex;
 		

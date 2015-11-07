@@ -11,11 +11,10 @@ public class Peixera {
 
 	GRectangle peixera;
 	List<Peix> Peixos;
-	List<Peix> Bebes = new ArrayList<Peix>();
+	List<Peix> Bebes;
 	int width;
 	int height;
-	Random rnd;
-
+	
 	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient) {
 
 		peixera = recipient;
@@ -82,30 +81,7 @@ public class Peixera {
 
 					for (int j = 0; j < Peixos.size(); j++) {
 
-						if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
-
-							String sex1 = Peixos.get(i).getSexe();
-							String sex2 = Peixos.get(j).getSexe();
-
-							if (sex1.equals(sex2)) {
-
-								Peixos.get(i).setVida(false);
-								Peixos.get(j).setVida(false);
-
-								Peixos.get(i).setPosicio(1000, 1000);
-								Peixos.get(j).setPosicio(1000, 1000);
-
-							} else {
-
-								if(Peixos.get(i).getRepro() && Peixos.get(j).getRepro()){
-								
-								Peixos.get(i).setRepro(false);
-								Peixos.get(j).setRepro(false);
-								crearBebe(i, j);
-								
-								} 
-							}
-						}
+						comprovarSexe(i, j, peix);
 					}
 
 				} else {
@@ -116,20 +92,54 @@ public class Peixera {
 				}
 			}
 
-			for (int i = Peixos.size() - 1; i >= 0; i--) {
+			comprovarVida();
+		}
+	}
 
-				if (!Peixos.get(i).getVida()) {
+	private void comprovarVida() {
+		
+		for (int i = Peixos.size() - 1; i >= 0; i--) {
 
-					Peixos.remove(i);
+			if (!Peixos.get(i).getVida()) {
 
-				}
+				Peixos.remove(i);
+
+			}
+		}
+	}
+
+	private void comprovarSexe(int i, int j, GRectangle peix) {
+		
+		if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
+
+			String sex1 = Peixos.get(i).getSexe();
+			String sex2 = Peixos.get(j).getSexe();
+
+			if (sex1.equals(sex2)) {
+
+				Peixos.get(i).setVida(false);
+				Peixos.get(j).setVida(false);
+
+				Peixos.get(i).setPosicio(1000, 1000);
+				Peixos.get(j).setPosicio(1000, 1000);
+
+			} else {
+
+				if(Peixos.get(i).getRepro() && Peixos.get(j).getRepro()){
+				
+				Peixos.get(i).setRepro(false);
+				Peixos.get(j).setRepro(false);
+				crearBebe(i, j);
+				
+				} 
 			}
 		}
 	}
 
 	private void crearBebe(int i, int j) {
 		
-		rnd = new Random();
+		Bebes = new ArrayList<Peix>();
+		Random rnd = new Random();
 		String[] sexe = { "mascle", "femella" };
 		int posX;
 		int posY;
@@ -152,7 +162,7 @@ public class Peixera {
 		System.out.println(posX + " " + posY);
 		
 		Peix P = new Peix(nouPeix, sexe[sex]);
-		P.setPosicio(posX, posY);
+		P.setPosicio(0, 0);
 		Bebes.add(P);
 	}
 }
