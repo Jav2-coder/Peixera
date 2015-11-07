@@ -22,12 +22,6 @@ public class Peix {
 		movY = y;
 	}
 	
-	public Peix(GImage img, String sex) {
-		imatge = img;
-		sexe = sex;
-		
-	}
-	
 	public boolean getVida() {
 		return vida;
 	}

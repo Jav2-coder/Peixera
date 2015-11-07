@@ -141,10 +141,20 @@ public class Peixera {
 		Bebes = new ArrayList<Peix>();
 		Random rnd = new Random();
 		String[] sexe = { "mascle", "femella" };
+		int [] direccio = {0, 1, -1};
 		int posX;
 		int posY;
 		int sex = rnd.nextInt(2);
 		GImage nouPeix;
+		
+		int movX = direccio[rnd.nextInt(3)];
+		int movY = 0;
+		
+		if (movX == 0) {
+			
+			movY = direccio[rnd.nextInt(2) + 1];
+			
+		}
 
 		if (Peixos.get(i).getSexe().equals(sexe[sex])) {
 
@@ -161,8 +171,8 @@ public class Peixera {
 
 		System.out.println(posX + " " + posY);
 		
-		Peix P = new Peix(nouPeix, sexe[sex]);
-		P.setPosicio(0, 0);
+		Peix P = new Peix(nouPeix, sexe[sex], movX, movY);
+		P.setPosicio(posX, posY);
 		Bebes.add(P);
 	}
 }
