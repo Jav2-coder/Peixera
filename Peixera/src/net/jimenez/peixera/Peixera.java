@@ -1,8 +1,10 @@
 package net.jimenez.peixera;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import acm.graphics.GImage;
 import acm.graphics.GRectangle;
 
 public class Peixera {
@@ -12,7 +14,7 @@ public class Peixera {
 	List<Peix> Bebes;
 	int width;
 	int height;
-
+	
 	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient) {
 
 		peixera = recipient;
@@ -64,9 +66,9 @@ public class Peixera {
 			}
 		}
 	}
-
-	public boolean hihaPeixos() {
-		if (Peixos.size() > 0) {
+	
+	public boolean hihaPeixos(){
+		if (Peixos.size()>0){
 			return false;
 		}
 		return true;
@@ -74,32 +76,35 @@ public class Peixera {
 
 	public void mourePeixos() {
 
-		for (int i = 0; i < Peixos.size(); i++) {
+		while (Peixos.size() > 0) {
 
-			GRectangle peix = Peixos.get(i).getRect();
+			for (int i = 0; i < Peixos.size(); i++) {
 
-			if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
+				GRectangle peix = Peixos.get(i).getRect();
 
-				Peixos.get(i).movimentPeix();
+				if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
 
-				for (int j = 0; j < Peixos.size(); j++) {
+					Peixos.get(i).movimentPeix();
 
-					comprovarSexe(i, j, peix);
+					for (int j = 0; j < Peixos.size(); j++) {
+
+						comprovarSexe(i, j, peix);
+					}
+
+				} else {
+
+					Peixos.get(i).canviDireccio();
+					Peixos.get(i).movimentPeix();
+
 				}
-
-			} else {
-
-				Peixos.get(i).canviDireccio();
-				Peixos.get(i).movimentPeix();
-
 			}
-		}
 
-		comprovarVida();
+			comprovarVida();
+		}
 	}
 
 	private void comprovarVida() {
-
+		
 		for (int i = Peixos.size() - 1; i >= 0; i--) {
 
 			if (!Peixos.get(i).getVida()) {
@@ -111,9 +116,8 @@ public class Peixera {
 	}
 
 	private void comprovarSexe(int i, int j, GRectangle peix) {
-
-		if (peix.intersects(Peixos.get(j).getRect())
-				&& Peixos.get(i) != Peixos.get(j)) {
+		
+		if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
 
 			String sex1 = Peixos.get(i).getSexe();
 			String sex2 = Peixos.get(j).getSexe();
@@ -128,12 +132,54 @@ public class Peixera {
 
 			} else {
 
-				if (Peixos.get(i).getRepro() && Peixos.get(j).getRepro()) {
-
-					Peixos.get(i).setRepro(false);
-					Peixos.get(j).setRepro(false);
-				}
+				if(Peixos.get(i).getRepro() && Peixos.get(j).getRepro()){
+				
+				Peixos.get(i).setRepro(false);
+				Peixos.get(j).setRepro(false);
+				crearBebe(i, j);
+				
+				} 
 			}
 		}
+	}
+
+	private void crearBebe(int i, int j) {
+		
+		Bebes = new ArrayList<Peix>();
+		Random rnd = new Random();
+		String[] sexe = { "mascle", "femella" };
+		int [] direccio = {0, 1, -1};
+		int posX;
+		int posY;
+		int sex = rnd.nextInt(2);
+		GImage nouPeix;
+		
+		int movX = direccio[rnd.nextInt(3)];
+		int movY = 0;
+		
+		if (movX == 0) {
+			
+			movY = direccio[rnd.nextInt(2) + 1];
+			
+		}
+
+		if (Peixos.get(i).getSexe().equals(sexe[sex])) {
+
+			nouPeix = Peixos.get(i).getImage();
+			posX = (int) Peixos.get(i).getImage().getX();
+			posY = (int) Peixos.get(i).getImage().getY();
+			
+		} else {
+
+			nouPeix = Peixos.get(j).getImage();
+			posX = (int) Peixos.get(j).getImage().getX();
+			posY = (int) Peixos.get(j).getImage().getY();
+		}
+
+		System.out.println(posX + " " + posY);
+		
+		Peix P = new Peix(nouPeix, sexe[sex], movX, movY);
+		P.setPosicio(posX, posY);
+		Bebes.add(P);
 	}
 }
