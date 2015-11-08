@@ -9,8 +9,6 @@ public class Peix {
 	int movX;
 	int movY;
 	GImage imatge;
-	int posX;
-	int posY;
 	boolean vida = true;
 	boolean repro = true;
 	
@@ -59,11 +57,11 @@ public class Peix {
 	}
 	
 	public int getPosY() {
-		return posY;
+		return (int) imatge.getY();
 	}
 	
 	public int getPosX() {
-		return posX;
+		return (int) imatge.getX();
 	}
 	
 	public void movimentPeix() {
@@ -77,9 +75,7 @@ public class Peix {
 	}
 	
 	public void setPosicio(int X, int Y){	
-		posX = X;
-		posY = Y;
-		imatge.setLocation(posX, posY);	
+		imatge.setLocation(X, Y);	
 	}
 	
 	public int widthImg() {

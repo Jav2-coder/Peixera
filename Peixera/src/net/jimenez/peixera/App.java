@@ -13,12 +13,13 @@ public class App extends GraphicsProgram {
 	String [] genere = {"mascle", "femella"};
 	int [] direccio = {0, 1, -1};
 	List<Peix> Peixos = new ArrayList<Peix>();
+	Random rnd;
 	
 	private static final long serialVersionUID = -9166620709533676373L;
 
 	public void init() {
 	
-		setSize(600, 600);
+		setSize(600, 700);
 		
 	}
 	
@@ -28,21 +29,29 @@ public class App extends GraphicsProgram {
 		
 		for(int i = 0; i < 50; i++){
 			
-			Peixos.add(crearPeix());
-			
+			if (i < 25) {
+			Peixos.add(crearPeix("mascle"));
+			} else {
+				Peixos.add(crearPeix("femella"));	
+			}
 		}
 		
 		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight(), recipient);
 		peixera.posicionament();
-		peixera.mourePeixos();
+		comprovaPeixos(peixera);
 		
 	}
 	
-	private Peix crearPeix() {
+	private void comprovaPeixos(Peixera peixera){
+		while (!peixera.hihaPeixos()){
+			peixera.mourePeixos();
+		}
+	}
+	
+	private Peix crearPeix(String sexe) {
 
-		Random rnd = new Random();
+		rnd = new Random();
 
-		String sexe = genere[rnd.nextInt(2)];
 		int movX = direccio[rnd.nextInt(3)];
 		int movY = 0;
 		
@@ -54,7 +63,7 @@ public class App extends GraphicsProgram {
 		
 		GImage img;
 		
-		if(sexe.equals(genere[0])){	
+		if(sexe.equals("mascle")){	
 			img = new GImage("inky.png");
 			img.scale(0.1);
 			add(img);	
