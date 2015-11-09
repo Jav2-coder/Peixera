@@ -10,8 +10,9 @@ import acm.program.GraphicsProgram;
 
 public class App extends GraphicsProgram {
 
-	String [] genere = {"mascle", "femella"};
-	int [] direccio = {0, 1, -1};
+	private static final int TOTAL_PEIXOS = 50;
+	private static final String [] GENERE = {"mascle", "femella"};
+	private static final int [] DIRECCIO = {0, 1, -1};
 	List<Peix> Peixos = new ArrayList<Peix>();
 	Random rnd;
 	
@@ -27,16 +28,16 @@ public class App extends GraphicsProgram {
 		
 		GRectangle recipient = new GRectangle(0, 0, getWidth(), getHeight());
 		
-		for(int i = 0; i < 50; i++){
+		for(int i = 0; i < TOTAL_PEIXOS; i++){
 			
-			if (i < 25) {
-			Peixos.add(crearPeix("mascle"));
+			if (i < (TOTAL_PEIXOS / 2)) {
+				Peixos.add(crearPeix("mascle"));
 			} else {
 				Peixos.add(crearPeix("femella"));	
 			}
 		}
-		
-		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight(), recipient);
+
+		Peixera peixera = new Peixera(Peixos, getWidth(), getHeight(), recipient, this);
 		peixera.posicionament();
 		comprovaPeixos(peixera);
 		
@@ -52,12 +53,12 @@ public class App extends GraphicsProgram {
 
 		rnd = new Random();
 
-		int movX = direccio[rnd.nextInt(3)];
+		int movX = DIRECCIO[rnd.nextInt(3)];
 		int movY = 0;
 		
 		if (movX == 0) {
 			
-			movY = direccio[rnd.nextInt(2) + 1];
+			movY = DIRECCIO[rnd.nextInt(2) + 1];
 			
 		}
 		

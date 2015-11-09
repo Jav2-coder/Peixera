@@ -1,27 +1,28 @@
 package net.jimenez.peixera;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import acm.graphics.GImage;
+//import acm.graphics.GImage;
 import acm.graphics.GRectangle;
 
 public class Peixera {
 
 	GRectangle peixera;
+	App pantalla;
 	List<Peix> Peixos;
 	List<Peix> Bebes;
 	int width;
 	int height;
 	
-	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient) {
+	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient, App a) {
 
 		peixera = recipient;
 		Peixos = fish;
 		width = w;
 		height = h;
-
+		pantalla = a;
 	}
 
 	public void posicionament() {
@@ -86,11 +87,6 @@ public class Peixera {
 
 					Peixos.get(i).movimentPeix();
 
-					for (int j = 0; j < Peixos.size(); j++) {
-
-						comprovarSexe(i, j, peix);
-					}
-
 				} else {
 
 					Peixos.get(i).canviDireccio();
@@ -115,7 +111,7 @@ public class Peixera {
 		}
 	}
 
-	private void comprovarSexe(int i, int j, GRectangle peix) {
+	/*private void comprovarSexe(int i, int j, GRectangle peix) {
 		
 		if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
 
@@ -179,7 +175,7 @@ public class Peixera {
 		System.out.println(posX + " " + posY);
 		
 		Peix P = new Peix(nouPeix, sexe[sex], movX, movY);
-		P.setPosicio(posX, posY);
+		P.setPosicio(0, 0);
 		Bebes.add(P);
-	}
+	}*/
 }
