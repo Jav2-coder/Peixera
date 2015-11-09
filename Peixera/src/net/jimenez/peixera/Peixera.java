@@ -1,106 +1,176 @@
 package net.jimenez.peixera;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//import acm.graphics.GImage;
 import acm.graphics.GRectangle;
 
 public class Peixera {
 
-	GRectangle peixera;
-	App pantalla;
-	List<Peix> Peixos;
-	List<Peix> Bebes;
-	int width;
-	int height;
+	private static final String[] GENERE = { "mascle", "femella" };
 	
-	public Peixera(List<Peix> fish, int w, int h, GRectangle recipient, App a) {
+	List<Peix> Peixos;
+	List<Peix> Bebes = new ArrayList<Peix>();
+	App pantalla;
+	Random rnd;
+	GRectangle peixera;
 
-		peixera = recipient;
+	public Peixera(List<Peix> fish, App a) {
+
 		Peixos = fish;
-		width = w;
-		height = h;
 		pantalla = a;
 	}
 
-	public void posicionament() {
+	public void inici() {
 
-		Random rnd = new Random();
+		peixera = new GRectangle(0, 0, pantalla.getWidth(),
+				pantalla.getHeight());
+
+		posicionament();
+		
+		while (Peixos.size() > 0) {
+			mourePeixos();
+			colisioPeixos();
+		}
+	}
+
+	private void posicionament() {
+
+		rnd = new Random();
 
 		for (int i = 0; i < Peixos.size(); i++) {
 
-			if (Peixos.get(i).getMoveX() == 0) {
+			boolean semafor = true;
 
-				if (Peixos.get(i).getMoveY() > 0) {
+			while (semafor) {
 
-					int posX = rnd.nextInt(width - Peixos.get(i).widthImg());
+				int interseccio = 0;
 
-					Peixos.get(i).setPosicio(posX, 0);
+				int posicio = rnd.nextInt(4);
+
+				if (posicio == 0) {
+
+					int altImg = Peixos.get(i).heightImg();
+
+					Peixos.get(i).setPosicio(0,
+							rnd.nextInt(pantalla.getHeight() - altImg));
+
+				} else if (posicio == 1) {
+
+					int ampImg = Peixos.get(i).widthImg();
+
+					Peixos.get(i).setPosicio(
+							rnd.nextInt(pantalla.getWidth() - ampImg), 0);
+
+				} else if (posicio == 2) {
+
+					int altImg = Peixos.get(i).heightImg();
+					int ampImg = Peixos.get(i).widthImg();
+
+					Peixos.get(i).setPosicio(pantalla.getWidth() - ampImg,
+							rnd.nextInt(pantalla.getHeight() - altImg));
 
 				} else {
 
-					int posX = rnd.nextInt(width - Peixos.get(i).widthImg());
-					int posY = height - Peixos.get(i).heightImg();
+					int altImg = Peixos.get(i).heightImg();
+					int ampImg = Peixos.get(i).widthImg();
 
-					Peixos.get(i).setPosicio(posX, posY);
+					Peixos.get(i).setPosicio(
+							rnd.nextInt(pantalla.getWidth() - ampImg),
+							pantalla.getHeight() - altImg);
 
 				}
+				GRectangle peix1 = Peixos.get(i).getRectangle();
+
+				for (int j = 0; j < Peixos.size(); j++) {
+
+					GRectangle peix2 = Peixos.get(j).getRectangle();
+
+					if (i != j && peix1.intersects(peix2)) {
+						interseccio++;
+					}
+				}
+				if (interseccio == 0) {
+					semafor = false;
+				}
+			}
+			semafor = true;
+		}
+	}
+
+	private void mourePeixos() {
+
+		peixera = new GRectangle(0, 0, pantalla.getWidth(),
+				pantalla.getHeight());
+
+		for (int i = 0; i < Peixos.size(); i++) {
+
+			GRectangle peix = Peixos.get(i).getRectangle();
+
+			if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
+
+				Peixos.get(i).movimentPeix();
 
 			} else {
 
-				if (Peixos.get(i).getMoveX() > 0) {
+				Peixos.get(i).canviDireccio();
+				Peixos.get(i).movimentPeix();
 
-					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
-
-					Peixos.get(i).setPosicio(0, posY);
-
-				} else {
-
-					int posX = width - Peixos.get(i).widthImg();
-					int posY = rnd.nextInt(height - Peixos.get(i).heightImg());
-
-					Peixos.get(i).setPosicio(posX, posY);
-
-				}
 			}
 		}
 	}
-	
-	public boolean hihaPeixos(){
-		if (Peixos.size()>0){
-			return false;
-		}
-		return true;
-	}
 
-	public void mourePeixos() {
+	private void colisioPeixos() {
 
-		while (Peixos.size() > 0) {
+		for (int i = 0; i < Peixos.size(); i++){
+			
+			GRectangle peixI = Peixos.get(i).getRectangle();
+			
+			for (int j = 0; j < Peixos.size(); j++) {
+				
+				GRectangle peixJ = Peixos.get(j).getRectangle();
+				
+				if (i != j && peixI.intersects(peixJ)){
+					
+					if(Peixos.get(i).sexePeixos(Peixos.get(j))) {
+						
+						Peixos.get(i).setVida(false);
+						Peixos.get(j).setVida(false);
 
-			for (int i = 0; i < Peixos.size(); i++) {
-
-				GRectangle peix = Peixos.get(i).getRect();
-
-				if (peix.intersects(peixera) && Peixos.get(i).getVida()) {
-
-					Peixos.get(i).movimentPeix();
-
-				} else {
-
-					Peixos.get(i).canviDireccio();
-					Peixos.get(i).movimentPeix();
-
-				}
+						Peixos.get(i).setPosicio(1000, 1000);
+						Peixos.get(j).setPosicio(1000, 1000);
+						
+					} else {
+						
+						String sex = GENERE[rnd.nextInt(2)];
+						Peix p = pantalla.crearPeix(sex);
+						
+						if(Peixos.get(i).getSexe().equals(sex)){
+							
+							int X = Peixos.get(i).getPosX();
+							int Y = Peixos.get(i).getPosY();
+							p.setPosicio(X, Y);
+							
+						} else {
+							
+							int X = Peixos.get(j).getPosX();
+							int Y = Peixos.get(j).getPosY();
+							p.setPosicio(X, Y);
+							
+						}
+						
+						Bebes.add(p);
+						
+					}
+				}	
 			}
-
-			comprovarVida();
 		}
+		netejarPeixera();
 	}
 
-	private void comprovarVida() {
-		
+	private void netejarPeixera() {
+
 		for (int i = Peixos.size() - 1; i >= 0; i--) {
 
 			if (!Peixos.get(i).getVida()) {
@@ -110,72 +180,4 @@ public class Peixera {
 			}
 		}
 	}
-
-	/*private void comprovarSexe(int i, int j, GRectangle peix) {
-		
-		if (peix.intersects(Peixos.get(j).getRect()) && Peixos.get(i) != Peixos.get(j)) {
-
-			String sex1 = Peixos.get(i).getSexe();
-			String sex2 = Peixos.get(j).getSexe();
-
-			if (sex1.equals(sex2)) {
-
-				Peixos.get(i).setVida(false);
-				Peixos.get(j).setVida(false);
-
-				Peixos.get(i).setPosicio(1000, 1000);
-				Peixos.get(j).setPosicio(1000, 1000);
-
-			} else {
-
-				if(Peixos.get(i).getRepro() && Peixos.get(j).getRepro()){
-				
-				Peixos.get(i).setRepro(false);
-				Peixos.get(j).setRepro(false);
-				crearBebe(i, j);
-				
-				} 
-			}
-		}
-	}
-
-	private void crearBebe(int i, int j) {
-		
-		Bebes = new ArrayList<Peix>();
-		Random rnd = new Random();
-		String[] sexe = { "mascle", "femella" };
-		int [] direccio = {0, 1, -1};
-		int posX;
-		int posY;
-		int sex = rnd.nextInt(2);
-		GImage nouPeix;
-		
-		int movX = direccio[rnd.nextInt(3)];
-		int movY = 0;
-		
-		if (movX == 0) {
-			
-			movY = direccio[rnd.nextInt(2) + 1];
-			
-		}
-
-		if (Peixos.get(i).getSexe().equals(sexe[sex])) {
-
-			nouPeix = Peixos.get(i).getImage();
-			posX = (int) Peixos.get(i).getImage().getX();
-			posY = (int) Peixos.get(i).getImage().getY();
-			
-		} else {
-
-			nouPeix = Peixos.get(j).getImage();
-			posX = (int) Peixos.get(j).getImage().getX();
-			posY = (int) Peixos.get(j).getImage().getY();
-		}
-
-		System.out.println(posX + " " + posY);
-		
-		Peix P = new Peix(nouPeix, sexe[sex], movX, movY);
-		P.setPosicio(0, 0);
-		Bebes.add(P);
-	}*/
 }
