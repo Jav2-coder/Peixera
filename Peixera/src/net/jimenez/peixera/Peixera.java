@@ -6,6 +6,11 @@ import java.util.Random;
 
 import acm.graphics.GRectangle;
 
+/**
+ * 
+ * @author Surrui
+ *
+ */
 public class Peixera {
 
 	private static final String[] GENERE = { "mascle", "femella" };
@@ -16,12 +21,23 @@ public class Peixera {
 	Random rnd;
 	GRectangle peixera;
 
+	/**
+	 * Constructor de l'objecte Peixera
+	 * 
+	 * @param fish parametre que dona el valor List de "Peixos" a l'objecte Peix.
+	 * @param a parametre que fa referencia al App del programa.
+	 */
 	public Peixera(List<Peix> fish, App a) {
 
 		Peixos = fish;
 		pantalla = a;
 	}
 
+	/**
+	 * Metode que inicia el programa
+	 * 
+	 * @return
+	 */
 	public boolean inici() {
 
 		peixera = new GRectangle(0, 0, pantalla.getWidth(), pantalla.getHeight());
@@ -36,6 +52,9 @@ public class Peixera {
 		return true;
 	}
 
+	/**
+	 * Metode que posiciona totes les GImage de tots els objectes Peix.
+	 */
 	private void posicionament() {
 
 		rnd = new Random();
@@ -95,6 +114,9 @@ public class Peixera {
 		}
 	}
 
+	/**
+	 * Metode que s'encarrega del moviment dels objectes Peix
+	 */
 	private void mourePeixos() {
 
 		for (int i = 0; i < Peixos.size(); i++) {
@@ -114,6 +136,11 @@ public class Peixera {
 		}
 	}
 
+	/**
+	 * Metode que s'encarrega de produir el resultat de la colisio dels
+	 * objectes Peix i decideix si elminiar els objectes o crear un nou
+	 * objecte Peix depenent del seu valor del String sexe.
+	 */
 	private void colisioPeixos() {
 
 		for (int i = 0; i < Peixos.size(); i++) {
@@ -185,6 +212,14 @@ public class Peixera {
 		}
 	}
 
+	/**
+	 * Metode que comprova si hi ha colisio entre els objectes Peix,
+	 * retornant un objecte Peix o un null per saber amb quin ha tingut la 
+	 * colisio l'objecte que pasem per parametre
+	 * 
+	 * @param peix1
+	 * @return
+	 */
 	private Peix XocaAmbPeix(Peix peix1) {
 
 		GRectangle peix1rect = peix1.getRectangle();
@@ -203,6 +238,9 @@ public class Peixera {
 		return null;
 	}
 
+	/**
+	 * Metode que s'encarrega d'eliminar els objectes Peix que estan morts.
+	 */
 	private void netejarPeixera() {
 
 		for (int i = Peixos.size() - 1; i >= 0; i--) {

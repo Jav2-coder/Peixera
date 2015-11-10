@@ -39,22 +39,29 @@ public class App extends GraphicsProgram {
 
 			if (i < (TOTAL_PEIXOS / 2)) {
 				Peixos.add(crearPeix("mascle"));
-				
+
 			} else {
 				Peixos.add(crearPeix("femella"));
 			}
 		}
-		
+
 		Peixera peixera = new Peixera(Peixos, this);
 		boolean noPeixos = peixera.inici();
-		
-		if(noPeixos){
+
+		if (noPeixos) {
 			GImage fi = new GImage("fi.png");
-			fi.setLocation(0, (getHeight()/2) - (fi.getHeight()/2));
+			fi.setLocation(0, (getHeight() / 2) - (fi.getHeight() / 2));
 			add(fi);
 		}
 	}
 
+	/**
+	 * Metode que s'encarrega de crear objectes Peix, als quals els hi dona la
+	 * direcció del moviment, la GImage i un String amb el seu sexe.
+	 * 
+	 * @param sexe String que dona el sexe al objecte Peix.
+	 * @return
+	 */
 	public Peix crearPeix(String sexe) {
 
 		rnd = new Random();
