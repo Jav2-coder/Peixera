@@ -7,20 +7,33 @@ import java.util.Random;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 
+/**
+ * 
+ * @author Surrui
+ *
+ */
 public class App extends GraphicsProgram {
 
 	private static final int TOTAL_PEIXOS = 50;
+	private static final int PEIXERA_AMP = 600;
+	private static final int PEIXERA_ALT = 700;
 	private static final long serialVersionUID = 8690459163749096224L;
 	private static final int[] DIRECCIO = { 0, 1, -1 };
 	List<Peix> Peixos = new ArrayList<Peix>();
 	Random rnd;
 
+	/**
+	 * Metode on creem variables que no variaran mentre fem servir el programa.
+	 */
 	public void init() {
 
-		setSize(600, 700);
+		setSize(PEIXERA_AMP, PEIXERA_ALT);
 
 	}
 
+	/**
+	 * Metode principal del programa, on creem tots els objectes.
+	 */
 	public void run() {
 		for (int i = 0; i < TOTAL_PEIXOS; i++) {
 
@@ -37,7 +50,7 @@ public class App extends GraphicsProgram {
 		
 		if(noPeixos){
 			GImage fi = new GImage("fi.png");
-			fi.setLocation(0, 250);
+			fi.setLocation(0, (getHeight()/2) - (fi.getHeight()/2));
 			add(fi);
 		}
 	}
@@ -50,9 +63,7 @@ public class App extends GraphicsProgram {
 		int movY = 0;
 
 		if (movX == 0) {
-
 			movY = DIRECCIO[rnd.nextInt(2) + 1];
-
 		}
 
 		GImage img;
