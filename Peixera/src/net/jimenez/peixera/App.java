@@ -33,7 +33,13 @@ public class App extends GraphicsProgram {
 		}
 		
 		Peixera peixera = new Peixera(Peixos, this);
-		peixera.inici();
+		boolean noPeixos = peixera.inici();
+		
+		if(noPeixos){
+			GImage fi = new GImage("fi.png");
+			fi.setLocation(0, 250);
+			add(fi);
+		}
 	}
 
 	public Peix crearPeix(String sexe) {

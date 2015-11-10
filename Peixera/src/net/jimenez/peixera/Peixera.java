@@ -22,7 +22,7 @@ public class Peixera {
 		pantalla = a;
 	}
 
-	public void inici() {
+	public boolean inici() {
 
 		peixera = new GRectangle(0, 0, pantalla.getWidth(), pantalla.getHeight());
 
@@ -32,6 +32,8 @@ public class Peixera {
 			mourePeixos();
 			colisioPeixos();
 		}
+		
+		return true;
 	}
 
 	private void posicionament() {
@@ -168,12 +170,18 @@ public class Peixera {
 		}
 		netejarPeixera();
 		
-		for (int i = 0; i < Bebes.size(); i++){
+		for (int i = Bebes.size() - 1; i >= 0; i--){
 			
 			Peix peix1 = Bebes.get(i);
 
 			Peix peix2 = XocaAmbPeix(peix1);
 			
+			if (peix2 == null) {
+				
+				Peixos.add(peix1);
+				Bebes.remove(i);
+				
+			}	
 		}
 	}
 

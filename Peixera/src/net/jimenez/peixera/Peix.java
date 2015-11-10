@@ -68,7 +68,7 @@ public class Peix {
 
 	public void movimentPeix() {
 		imatge.move(movX, movY);
-		imatge.pause(1);
+		imatge.pause(2);
 	}
 
 	public void canviDireccio() {
