@@ -10,6 +10,7 @@ public class Peix {
 	int movY;
 	GImage imatge;
 	boolean vida = true;
+	boolean reproduccio = true;
 
 	public Peix(GImage img, String sex, int x, int y) {
 
@@ -19,6 +20,14 @@ public class Peix {
 		movY = y;
 	}
 
+	public boolean getRepro() {
+		return reproduccio;
+	}
+	
+	public void setRepro(boolean r){
+		reproduccio = r;
+	}
+	
 	public int widthImg() {
 		int w = (int) imatge.getWidth();
 		return w;
