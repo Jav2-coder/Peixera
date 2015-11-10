@@ -159,9 +159,7 @@ public class Peixera {
 							p.setPosicio(X, Y);
 							
 						}
-						
-						Bebes.add(p);
-						
+						Bebes.add(p);	
 					}
 				}	
 			}
