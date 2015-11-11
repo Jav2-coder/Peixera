@@ -24,8 +24,10 @@ public class Peixera {
 	/**
 	 * Constructor de l'objecte Peixera
 	 * 
-	 * @param fish parametre que dona el valor List de "Peixos" a l'objecte Peix.
-	 * @param a parametre que fa referencia al App del programa.
+	 * @param fish
+	 *            parametre que dona el valor List de "Peixos" a l'objecte Peix.
+	 * @param a
+	 *            parametre que fa referencia al App del programa.
 	 */
 	public Peixera(List<Peix> fish, App a) {
 
@@ -48,7 +50,7 @@ public class Peixera {
 			mourePeixos();
 			colisioPeixos();
 		}
-		
+
 		return true;
 	}
 
@@ -137,9 +139,9 @@ public class Peixera {
 	}
 
 	/**
-	 * Metode que s'encarrega de produir el resultat de la colisio dels
-	 * objectes Peix i decideix si elminiar els objectes o crear un nou
-	 * objecte Peix depenent del seu valor del String sexe.
+	 * Metode que s'encarrega de produir el resultat de la colisio dels objectes
+	 * Peix i decideix si elminiar els objectes o crear un nou objecte Peix
+	 * depenent del seu valor del String sexe.
 	 */
 	private void colisioPeixos() {
 
@@ -156,66 +158,65 @@ public class Peixera {
 
 			} else {
 
-				if (peix1 != peix2) {
+				// matar
+				if (peix1.sexePeixos(peix2)) {
 
-					// matar
-					if (peix1.sexePeixos(peix2)) {
+					peix1.setVida(false);
+					peix2.setVida(false);
 
-						peix1.setVida(false);
-						peix2.setVida(false);
+					peix1.setPosicio(1000, 1000);
+					peix2.setPosicio(1000, 1000);
 
-						peix1.setPosicio(1000, 1000);
-						peix2.setPosicio(1000, 1000);
+				} else {
 
-					} else {
-						
-						// Si poden tenir sexe ..
-						if (peix1.getRepro() && peix2.getRepro()) {
-							
-							peix1.setRepro(false);
-							
-							String sex = GENERE[rnd.nextInt(2)]; 
-							
-							Peix p = pantalla.crearPeix(sex);
-							 
-							  if (peix1.equals(sex)) {
-							  
-							  int X = peix1.getPosX(); int Y = peix1.getPosY();
-							  p.setPosicio(X, Y);
-							  
-							  } else {
-							  
-							  int X = peix2.getPosX(); 
-							  int Y = peix2.getPosY();
-							  p.setPosicio(X, Y);
-							  
-							  } Bebes.add(p);		
+					// Si poden tenir sexe ..
+					if (peix1.getRepro() && peix2.getRepro()) {
+
+						peix1.setRepro(false);
+
+						String sex = GENERE[rnd.nextInt(2)];
+
+						Peix p = pantalla.crearPeix(sex);
+
+						if (peix1.equals(sex)) {
+
+							int X = peix1.getPosX();
+							int Y = peix1.getPosY();
+							p.setPosicio(X, Y);
+
+						} else {
+
+							int X = peix2.getPosX();
+							int Y = peix2.getPosY();
+							p.setPosicio(X, Y);
+
 						}
+						Bebes.add(p);
 					}
 				}
 			}
 		}
 		netejarPeixera();
-		
-		for (int i = Bebes.size() - 1; i >= 0; i--){
-			
+
+		for (int i = Bebes.size() - 1; i >= 0; i--) {
+
 			Peix peix1 = Bebes.get(i);
 
 			Peix peix2 = XocaAmbPeix(peix1);
-			
+
 			if (peix2 == null) {
-				
+
 				Peixos.add(peix1);
 				Bebes.remove(i);
-				
-			}	
+
+			}
 		}
 	}
 
 	/**
-	 * Metode que comprova si hi ha colisio entre els objectes Peix,
-	 * retornant un objecte Peix o un null per saber amb quin ha tingut la 
-	 * colisio l'objecte que pasem per parametre
+	 * Metode que comprova si hi ha colisio entre els objectes Peix, retornant
+	 * un objecte Peix o un null per saber amb quin ha tingut la colisio
+	 * l'objecte que pasem per parametre
 	 * 
 	 * @param peix1
 	 * @return

@@ -44,6 +44,10 @@ public class Peix {
 		return reproduccio;
 	}
 
+	/*public GImage getImage() {
+		return imatge;
+	}*/
+	
 	/**
 	 * Metode que permet modificar el boolean que comprova si l'objecte Peix pot
 	 * reproduirse o no.
