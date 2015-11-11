@@ -48,6 +48,7 @@ public class Peixera {
 
 		while (Peixos.size() > 0) {
 			mourePeixos();
+			pantalla.pause(5);
 			colisioPeixos();
 		}
 

@@ -44,10 +44,6 @@ public class Peix {
 		return reproduccio;
 	}
 
-	/*public GImage getImage() {
-		return imatge;
-	}*/
-	
 	/**
 	 * Metode que permet modificar el boolean que comprova si l'objecte Peix pot
 	 * reproduirse o no.
@@ -153,7 +149,6 @@ public class Peix {
 	 */
 	public void movimentPeix() {
 		imatge.move(movX, movY);
-		imatge.pause(2);
 	}
 
 	/**

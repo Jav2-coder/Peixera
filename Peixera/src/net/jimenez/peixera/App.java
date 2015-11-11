@@ -28,6 +28,8 @@ public class App extends GraphicsProgram {
 	public void init() {
 
 		setSize(PEIXERA_AMP, PEIXERA_ALT);
+		GImage fons = new GImage("inky.png");
+		add(fons);
 
 	}
 
