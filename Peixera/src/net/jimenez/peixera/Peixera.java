@@ -24,10 +24,8 @@ public class Peixera {
 	/**
 	 * Constructor de l'objecte Peixera
 	 * 
-	 * @param fish
-	 *            parametre que dona el valor List de "Peixos" a l'objecte Peix.
-	 * @param a
-	 *            parametre que fa referencia al App del programa.
+	 * @param fish parametre que dona el valor List de "Peixos" a l'objecte Peix.
+	 * @param a parametre que fa referencia al App del programa.
 	 */
 	public Peixera(List<Peix> fish, App a) {
 
