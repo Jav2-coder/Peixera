@@ -16,7 +16,7 @@ public class App extends GraphicsProgram {
 
 	private static final int TOTAL_PEIXOS = 50;
 	private static final int PEIXERA_AMP = 600;
-	private static final int PEIXERA_ALT = 700;
+	private static final int PEIXERA_ALT = 776;
 	private static final long serialVersionUID = 8690459163749096224L;
 	private static final int[] DIRECCIO = { 0, 1, -1 };
 	List<Peix> Peixos = new ArrayList<Peix>();
@@ -28,7 +28,7 @@ public class App extends GraphicsProgram {
 	public void init() {
 
 		setSize(PEIXERA_AMP, PEIXERA_ALT);
-		GImage fons = new GImage("inky.png");
+		GImage fons = new GImage("Pacman-fond.png");
 		add(fons);
 
 	}
