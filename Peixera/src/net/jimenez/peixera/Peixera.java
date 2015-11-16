@@ -111,7 +111,6 @@ public class Peixera {
 					semafor = false;
 				}
 			}
-			semafor = true;
 		}
 	}
 
